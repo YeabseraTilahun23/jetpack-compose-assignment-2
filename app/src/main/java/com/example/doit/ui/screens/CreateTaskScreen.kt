@@ -4,7 +4,7 @@ import android.app.DatePickerDialog
 import android.text.format.DateFormat
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.*
@@ -53,6 +53,7 @@ fun CreateTaskScreen(vm: TodoViewModel, navController: NavController) {
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
@@ -66,6 +67,7 @@ fun CreateTaskScreen(vm: TodoViewModel, navController: NavController) {
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
+
         var expandedDifficulty by remember { mutableStateOf(false) }
         Box(modifier = Modifier.fillMaxWidth()) {
             OutlinedTextField(
@@ -82,16 +84,18 @@ fun CreateTaskScreen(vm: TodoViewModel, navController: NavController) {
                 onDismissRequest = { expandedDifficulty = false }
             ) {
                 listOf("Easy", "Medium", "Hard").forEach { option ->
-                    DropdownMenuItem(onClick = {
-                        difficulty = option
-                        expandedDifficulty = false
-                    }) {
-                        Text(text = option)
-                    }
+                    DropdownMenuItem(
+                        text = { Text(option) },
+                        onClick = {
+                            difficulty = option
+                            expandedDifficulty = false
+                        }
+                    )
                 }
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
+
         var expandedPriority by remember { mutableStateOf(false) }
         Box(modifier = Modifier.fillMaxWidth()) {
             OutlinedTextField(
@@ -108,16 +112,18 @@ fun CreateTaskScreen(vm: TodoViewModel, navController: NavController) {
                 onDismissRequest = { expandedPriority = false }
             ) {
                 (1..5).forEach { num ->
-                    DropdownMenuItem(onClick = {
-                        priority = num.toString()
-                        expandedPriority = false
-                    }) {
-                        Text(text = num.toString())
-                    }
+                    DropdownMenuItem(
+                        text = { Text(num.toString()) },
+                        onClick = {
+                            priority = num.toString()
+                            expandedPriority = false
+                        }
+                    )
                 }
             }
         }
         Spacer(modifier = Modifier.height(8.dp))
+
         OutlinedTextField(
             value = subtasksText,
             onValueChange = { subtasksText = it },
@@ -125,6 +131,7 @@ fun CreateTaskScreen(vm: TodoViewModel, navController: NavController) {
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
+
         Row(modifier = Modifier.fillMaxWidth()) {
             Button(
                 onClick = { navController.popBackStack() },

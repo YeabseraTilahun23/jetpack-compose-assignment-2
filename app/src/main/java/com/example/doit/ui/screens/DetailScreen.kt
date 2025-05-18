@@ -31,8 +31,8 @@ fun TodoDetailsScreen(todo: TodoEntity) {
 }
 
 @Composable
-fun DetailScreen(todoId: Int?, vm: TodoViewModel, navController: NavController) { // ✅ Nullable todoId
-    val todosList = vm.todos.collectAsState(initial = emptyList()).value // ✅ Fix delegate issue
+fun DetailScreen(todoId: Int?, vm: TodoViewModel, navController: NavController) {
+    val todosList = vm.todos.collectAsState(initial = emptyList()).value
 
     val todo = remember(todoId) {
         derivedStateOf { todosList.find { it.id == todoId } }
@@ -43,7 +43,7 @@ fun DetailScreen(todoId: Int?, vm: TodoViewModel, navController: NavController) 
             Text("Task not found")
         }
     } else {
-        val task = todo.value!! // ✅ Safely unwrap value
+        val task = todo.value!!
 
         Column(modifier = Modifier.padding(16.dp)) {
             Text("Title: ${task.title}", fontSize = 22.sp)
